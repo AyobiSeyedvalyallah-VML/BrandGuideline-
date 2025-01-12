@@ -1,9 +1,9 @@
 import openai
 import pandas as pd
 from io import StringIO
+import os 
 
-
-openai.api_key = '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'
+openai.api_key = os.getenv('OPENAI_API_KEY')
 MODEL = "gpt-4o"
 def prompt_transformer(html_content: str) -> str:
     """
