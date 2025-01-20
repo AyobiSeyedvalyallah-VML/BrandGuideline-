@@ -4,6 +4,10 @@ import streamlit as st
 import os
 from helpers import prompt_transformer, image_font_generation, fix_csv
 import time
+from pathlib import Path
+
+project_dir = Path(__file__).parent.parent
+
 uploaded_files = st.file_uploader(
     "Please upload the Brand Guideline file",
     accept_multiple_files=True,
@@ -67,7 +71,10 @@ for uploaded_file in uploaded_files:
             else:
                 st.image(row['image_link'], caption=row['description'],use_container_width =False)
     file_name = st.session_state['filename'].replace(".html","")
-    fonts = os.listdir(f'./fonts/{file_name}')
+    fonts_folder = Path(project_dir) /'fonts'
+    fonts_path = os.path.join(fonts_folder,file_name)
+    fonts = os.listdir(fonts_path)
+    #fonts = os.listdir(f'./fonts/{file_name}')
     
   
     if choice is not None and 'font' in choice.lower():
