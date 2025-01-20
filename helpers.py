@@ -50,7 +50,7 @@ def image_font_generation(font,folder):
     'KB': 'https://brand.kb.cz/m/6d636a1c2be0aea5/webimage-KB_104_Noir-Quadri.png',
     'Adobe': 'https://www.pngplay.com/wp-content/uploads/9/Adobe-Systems-Logo-PNG-Clipart-Background.png'
     }
-    logo = logo_url[folder]
+    logo = logo_urls[folder]
     response = requests.get(logo)
     if response.status_code == 200:
         logo = Image.open(BytesIO(response.content))
