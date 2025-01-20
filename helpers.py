@@ -8,6 +8,7 @@ project_dir = Path(__file__).parent.parent
 
 openai.api_key = os.getenv('OPENAI_API_KEY')
 MODEL = "gpt-4o"
+
 def prompt_transformer(html_content: str) -> str:
     """
     Transforms the user input into an optimized prompt using OpenAI GPT-4.
@@ -40,7 +41,7 @@ def fix_csv(text):
 
 def image_font_generation(font,folder):
 
-    image_path = Path(project_dir)/'image'/'input'
+    image_path = Path(project_dir)/'BrandGuideline-'/'image'/'input'
     image = Image.open(os.path.join(image_path,'image.jpg'))
     draw = ImageDraw.Draw(image)
 
@@ -55,7 +56,7 @@ def image_font_generation(font,folder):
 
     # Dynamically adjust font size to fit the image
     font_size = 10  # Start with a small font size
-    font_folder = Path(project_dir) /'fonts'/folder/font  # Path to the font file
+    font_folder = Path(project_dir) /'BrandGuideline-'/'fonts'/folder  # Path to the font file
     font_path = os.path.join(font_folder,font)
     while True:
         font = ImageFont.truetype(font_path, font_size)
