@@ -87,7 +87,7 @@ def image_font_generation(font,folder):
 
     # Add the text to the image
     draw.text((text_x, text_y), text, fill=text_color, font=font)
-    logging.info(font)
+    # logging.info(font)
     # Save or display the image
     # image.save(f"./image/output/output_image_{font.replace('.otf','')}.jpg")
     # image.show()
