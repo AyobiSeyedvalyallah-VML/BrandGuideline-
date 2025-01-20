@@ -42,7 +42,8 @@ def fix_csv(text):
 def image_font_generation(font,folder):
 
     # image_path = Path(project_dir)/'BrandGuideline-'/'image'/'input'
-    image_path = os.path.join(project_path,'image\\input')
+    image_folder = os.path.join(project_path,'image')
+    image_path = os.path.join(image_folder,'input')
     image = Image.open(os.path.join(image_path,'image.jpg'))
     draw = ImageDraw.Draw(image)
 
@@ -57,8 +58,9 @@ def image_font_generation(font,folder):
 
     # Dynamically adjust font size to fit the image
     font_size = 10  # Start with a small font size
-    font_folder = Path(project_dir) /'BrandGuideline-'/'fonts'/folder  # Path to the font file
-    font_folder = os.path.join(project_path,f'fonts\\{folder}')
+    # font_folder = Path(project_dir) /'BrandGuideline-'/'fonts'/folder  # Path to the font file
+    font_folder = os.path.join(project_path,'fonts')
+    font_folder = os.path.join(font_folder,folder)
     font_path = os.path.join(font_folder,font)
     while True:
         font = ImageFont.truetype(font_path, font_size)
