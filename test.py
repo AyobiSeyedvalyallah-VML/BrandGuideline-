@@ -74,7 +74,7 @@ for uploaded_file in uploaded_files:
                 st.image(f"https://spectrum.adobe.com{row['image_link']}", caption=row['description'],use_container_width =False)
             else:
                 st.image(row['image_link'], caption=row['description'],use_container_width =False)
-    file_name = st.session_state['filename'].replace(".html","")
+    file_name = st.session_state['filename'].replace(".html","").capitalize()
     # fonts_folder = os.path.join(project_path,'fonts')
     fonts_path = os.path.join(fonts_folder,file_name)
     fonts = os.listdir(fonts_path)
