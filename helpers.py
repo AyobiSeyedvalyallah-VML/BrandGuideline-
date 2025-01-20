@@ -9,7 +9,10 @@ project_dir = Path(__file__).parent.parent
 project_path = os.path.join(project_dir,'brandguideline-')
 openai.api_key = os.getenv('OPENAI_API_KEY')
 MODEL = "gpt-4o"
-
+def capitalize_if_needed(s):
+    if not s[:1].isupper():  # Check if the first character is not uppercase
+        return s.capitalize()
+    return s
 def prompt_transformer(html_content: str) -> str:
     """
     Transforms the user input into an optimized prompt using OpenAI GPT-4.
