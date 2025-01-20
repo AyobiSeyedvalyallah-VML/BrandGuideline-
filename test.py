@@ -20,7 +20,7 @@ uploaded_files = st.file_uploader(
 
 st.session_state.setdefault("extract", True)
 st.session_state.setdefault("df", '')
-st.session_state.setdefault("retry",False)
+st.session_state.setdefault("retry",True)
 st.session_state.setdefault('filename','')
 file_name = ''
 for uploaded_file in uploaded_files:
@@ -46,17 +46,19 @@ for uploaded_file in uploaded_files:
     try:
         df = pd.read_csv(StringIO(st.session_state['df']))
     except:
-        with st.spinner("Retry: Extracting data..."):
-            try:
-                time.sleep(5)
-                df = fix_csv(st.session_state['df'])
-                df = pd.read_csv(StringIO(df))
-                # st.session_state['df'] = df
-            except Exception as e:
-                # df = prompt_transformer(html_content)
-                # df = pd.read_csv(StringIO(st.session_state['df']))
-                # st.session_state['df'] = df
-                st.write('Error: ',"can't parse the file")
+       if st.session_state['retry']:
+            with st.spinner("Retry: Extracting data..."):
+                try:
+                    time.sleep(5)
+                    df = fix_csv(st.session_state['df'])
+                    df = pd.read_csv(StringIO(df))
+                    st.session_state['retry'] = False
+                    # st.session_state['df'] = df
+                except Exception as e:
+                    # df = prompt_transformer(html_content)
+                    # df = pd.read_csv(StringIO(st.session_state['df']))
+                    # st.session_state['df'] = df
+                    st.write('Error: ',"can't parse the file")
     
     choice = st.selectbox(
         "Select the Type",
