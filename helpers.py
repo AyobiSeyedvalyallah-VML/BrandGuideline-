@@ -3,6 +3,7 @@ import pandas as pd
 from io import StringIO
 import os 
 from pathlib import Path
+from PIL import Image,ImageDraw,ImageFont
 
 project_dir = Path(__file__).parent.parent
 project_path = os.path.join(project_dir,'brandguideline-')
