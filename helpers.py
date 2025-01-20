@@ -4,6 +4,8 @@ from io import StringIO
 import os 
 from pathlib import Path
 from PIL import Image,ImageDraw,ImageFont
+import requests
+from io import BytesIO
 
 project_dir = Path(__file__).parent.parent
 project_path = os.path.join(project_dir,'brandguideline-')
@@ -44,7 +46,17 @@ def fix_csv(text):
     return data
 
 def image_font_generation(font,folder):
-
+    logo_urls = {
+    'KB': 'https://brand.kb.cz/m/6d636a1c2be0aea5/webimage-KB_104_Noir-Quadri.png',
+    'Adobe': 'https://www.pngplay.com/wp-content/uploads/9/Adobe-Systems-Logo-PNG-Clipart-Background.png'
+    }
+    logo = logo_url[folder]
+    response = requests.get(logo)
+    if response.status_code == 200:
+        logo = Image.open(BytesIO(response.content))
+    else:
+        raise Exception("Failed to download the logo. Check the URL.")
+    
     # image_path = Path(project_dir)/'BrandGuideline-'/'image'/'input'
     image_folder = os.path.join(project_path,'image')
     image_path = os.path.join(image_folder,'input')
@@ -59,7 +71,15 @@ def image_font_generation(font,folder):
     text = f"This is a test to show case {font}"
 
     image_width, image_height = image.size
-
+    logo_size = (image_width // 5, image_height // 10)
+    logo_resized = logo.resize(logo_size, Image.Resampling.LANCZOS)
+    
+    # Position the logo at the bottom-left corner
+    logo_x = 10  # Padding from the left
+    logo_y = image_height - logo_size[1] - 10  # Padding from the bottom
+    
+    # Paste the logo on the image (handle transparency)
+    image.paste(logo_resized, (logo_x, logo_y), logo_resized if logo_resized.mode == "RGBA" else None)
     # Dynamically adjust font size to fit the image
     font_size = 10  # Start with a small font size
     # font_folder = Path(project_dir) /'BrandGuideline-'/'fonts'/folder  # Path to the font file
