@@ -9,6 +9,7 @@ from pathlib import Path
 project_dir = Path(__file__).parent.parent
 st.write(os.listdir(project_dir))
 st.write(os.listdir(os.path.join(project_dir,'brandguideline-')))
+project_path = os.path.join(project_dir,'brandguideline-')
 uploaded_files = st.file_uploader(
     "Please upload the Brand Guideline file",
     accept_multiple_files=True,
@@ -72,7 +73,7 @@ for uploaded_file in uploaded_files:
             else:
                 st.image(row['image_link'], caption=row['description'],use_container_width =False)
     file_name = st.session_state['filename'].replace(".html","")
-    fonts_folder = Path(project_dir) /'BrandGuideline-'/'fonts'
+    fonts_folder = os.path.join(project_path,'fonts')
     fonts_path = os.path.join(fonts_folder,file_name)
     fonts = os.listdir(fonts_path)
     #fonts = os.listdir(f'./fonts/{file_name}')
