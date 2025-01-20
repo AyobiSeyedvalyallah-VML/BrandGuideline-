@@ -2,7 +2,7 @@ from io import StringIO
 import pandas as pd
 import streamlit as st
 import os
-from helpers import prompt_transformer, image_font_generation, fix_csv
+from helpers import prompt_transformer, image_font_generation, fix_csv, capitalize_if_needed
 import time
 from pathlib import Path
 
@@ -76,7 +76,7 @@ for uploaded_file in uploaded_files:
                 st.image(f"https://spectrum.adobe.com{row['image_link']}", caption=row['description'],use_container_width =False)
             else:
                 st.image(row['image_link'], caption=row['description'],use_container_width =False)
-    file_name = st.session_state['filename'].replace(".html","").capitalize()
+    file_name = capitalize_if_needed(st.session_state['filename'].replace(".html",""))
     # fonts_folder = os.path.join(project_path,'fonts')
     fonts_path = os.path.join(fonts_folder,file_name)
     fonts = os.listdir(fonts_path)
