@@ -76,7 +76,7 @@ for uploaded_file in uploaded_files:
                 st.image(row['image_link'], caption=row['description'],use_container_width =False)
     file_name = st.session_state['filename'].replace(".html","")
     # fonts_folder = os.path.join(project_path,'fonts')
-    fonts_path = os.path.join(fonts_folder,"Adobe")
+    fonts_path = os.path.join(fonts_folder,filename)
     fonts = os.listdir(fonts_path)
     #fonts = os.listdir(f'./fonts/{file_name}')
     
