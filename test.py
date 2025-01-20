@@ -8,7 +8,7 @@ from pathlib import Path
 
 project_dir = Path(__file__).parent.parent
 st.write(os.listdir(project_dir))
-st.write(os.listdir(os.path.join(project_dir,'brandguideline-'))
+st.write(os.listdir(os.path.join(project_dir,'brandguideline-')))
 uploaded_files = st.file_uploader(
     "Please upload the Brand Guideline file",
     accept_multiple_files=True,
