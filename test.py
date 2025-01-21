@@ -61,10 +61,10 @@ for uploaded_file in uploaded_files:
                     st.write('Error: ',"can't parse the file")
     # if df.columns[0] == 'plaintext':
     df.columns = ['image_link', 'description', 'category']
-    st.write(df[0])
+    st.write(df)
     choice = st.selectbox(
         "Select the Type",
-        [i for i in df['category'].unique()],
+        [i for i in df['category'].unique() if i != 'category' or i != 'plaintext'],
         index=None,
         placeholder="Please select the category..."
     )
