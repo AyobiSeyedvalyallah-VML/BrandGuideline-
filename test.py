@@ -5,7 +5,7 @@ import os
 from helpers import prompt_transformer, image_font_generation, fix_csv, capitalize_if_needed
 import time
 from pathlib import Path
-
+import json
 project_dir = Path(__file__).parent.parent
 # st.write(os.listdir(project_dir))
 # st.write(os.listdir(os.path.join(project_dir,'brandguideline-')))
@@ -36,23 +36,27 @@ for uploaded_file in uploaded_files:
         file_name = uploaded_file.name
         with st.spinner("Extracting data..."):
             try:
-                df = prompt_transformer(html_content)
+                df = prompt_transformer(html_content).replace('json','').strip()
             except:
-                df = prompt_transformer(html_content)
+                df = prompt_transformer(html_content).replace('json','').strip()
             st.session_state['df'] = df
             st.session_state['extract']=False
             # st.snow()
         
     count = 0
     try:
-        df = pd.read_csv(StringIO(st.session_state['df']),sep='**',header=0)
+        df = json.loads(st.session_state['df'])
+        df = pd.json_normalize(df)
+        # df = pd.read_csv(StringIO(st.session_state['df']),sep='**',header=0)
     except:
        if st.session_state['retry']:
             with st.spinner("Retry: Extracting data..."):
                 try:
                     time.sleep(5)
                     df = fix_csv(st.session_state['df'])
-                    df = pd.read_csv(StringIO(df),sep='**',header=0)
+                    df = json.loads(st.session_state['df'])
+                    df = pd.json_normalize(df)
+                    # df = pd.read_csv(StringIO(df),sep='**',header=0)
                     st.session_state['retry'] = False
                     # st.session_state['df'] = df
                 except Exception as e:
