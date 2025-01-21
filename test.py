@@ -60,7 +60,7 @@ for uploaded_file in uploaded_files:
                     # st.session_state['df'] = df
                     st.write('Error: ',"can't parse the file")
     # if df.columns[0] == 'plaintext':
-    st.write(df)
+    st.write(st.session_state['df'])
     df.columns = ['image_link', 'description', 'category']
     st.write(df)
     choice = st.selectbox(
