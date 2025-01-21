@@ -69,7 +69,7 @@ for uploaded_file in uploaded_files:
     df.to_csv('output.csv')
     temp = df[df['category']==choice]
     cols = st.columns(3)
-    st.write(temp.columns)
+    # st.write(temp.columns)
     for index,row in temp.iterrows():
         with cols[index % 3]:
             if 'https' not in row['image_link']:
