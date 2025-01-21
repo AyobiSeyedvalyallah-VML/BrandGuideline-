@@ -65,11 +65,11 @@ for uploaded_file in uploaded_files:
                     # st.session_state['df'] = df
                     st.write('Error: ',"can't parse the file")
     # if df.columns[0] == 'plaintext':
-    st.write(st.session_state['df'])
+    # st.write(st.session_state['df'])
     # f = pd.read_csv(StringIO(st.session_state['df']),sep='\t',header=0)
     # st.write(f)
     # df.columns = ['image_link', 'description', 'category']
-    st.write(df.columns)
+    # st.write(df.columns)
     choice = st.selectbox(
         "Select the Type",
         [i for i in df['category'].unique() if i != 'category' and i != 'plaintext'],
@@ -79,7 +79,7 @@ for uploaded_file in uploaded_files:
     df.to_csv('output.csv')
     temp = df[df['category']==choice]
     cols = st.columns(3)
-    st.write(temp.columns)
+    # st.write(temp.columns)
     for index,row in temp.iterrows():
         with cols[index % 3]:
             if 'https' not in row['image_link']:
