@@ -37,7 +37,7 @@ def fix_csv(text):
     response = openai.chat.completions.create(
         model=MODEL,
         messages=[
-            {"role": "system", "content":  """fix the following csv. which the error is Error tokenizing data. C error: Expected 3 fields in line 4, saw 5. Only return the csv"""},
+            {"role": "system", "content":  """fix the following Tab-separated. Only return the TSV"""},
             {"role": "user", "content": f'{text}'}
         ]
     )
