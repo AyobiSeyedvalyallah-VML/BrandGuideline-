@@ -25,7 +25,7 @@ def prompt_transformer(html_content: str) -> str:
             {"role": "system", "content":  """you will receive a html file of my brand guideline
 I want you to generate a table the one column is image_link and one column is description (if it doesn't have return None for description) and one column category of image (this should not be long) and don't over categorized.
 if the category is font, only return the name of the font in the description
-Only return the table in CSV format"""},
+Only return the table in TSV format"""},
             {"role": "user", "content": f'{html_content}'}
         ]
     )
