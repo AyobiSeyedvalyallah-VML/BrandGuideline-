@@ -61,6 +61,8 @@ for uploaded_file in uploaded_files:
                     st.write('Error: ',"can't parse the file")
     # if df.columns[0] == 'plaintext':
     st.write(st.session_state['df'])
+    f = pd.read_csv(StringIO(st.session_state['df']),sep='\t',header=0)
+    st.write(f)
     df.columns = ['image_link', 'description', 'category']
     st.write(df)
     choice = st.selectbox(
