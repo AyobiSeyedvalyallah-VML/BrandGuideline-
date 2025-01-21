@@ -64,7 +64,7 @@ for uploaded_file in uploaded_files:
     # f = pd.read_csv(StringIO(st.session_state['df']),sep='\t',header=0)
     # st.write(f)
     # df.columns = ['image_link', 'description', 'category']
-    st.write(df)
+    st.write(df.columns)
     choice = st.selectbox(
         "Select the Type",
         [i for i in df['category'].unique() if i != 'category' and i != 'plaintext'],
