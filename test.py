@@ -44,14 +44,14 @@ for uploaded_file in uploaded_files:
         
     count = 0
     try:
-        df = pd.read_csv(StringIO(st.session_state['df']),sep='\t',header=None)
+        df = pd.read_csv(StringIO(st.session_state['df']),sep='**',header=0)
     except:
        if st.session_state['retry']:
             with st.spinner("Retry: Extracting data..."):
                 try:
                     time.sleep(5)
                     df = fix_csv(st.session_state['df'])
-                    df = pd.read_csv(StringIO(df),sep='\t',header=None)
+                    df = pd.read_csv(StringIO(df),sep='**',header=0)
                     st.session_state['retry'] = False
                     # st.session_state['df'] = df
                 except Exception as e:
@@ -61,9 +61,9 @@ for uploaded_file in uploaded_files:
                     st.write('Error: ',"can't parse the file")
     # if df.columns[0] == 'plaintext':
     st.write(st.session_state['df'])
-    f = pd.read_csv(StringIO(st.session_state['df']),sep='\t',header=0)
-    st.write(f)
-    df.columns = ['image_link', 'description', 'category']
+    # f = pd.read_csv(StringIO(st.session_state['df']),sep='\t',header=0)
+    # st.write(f)
+    # df.columns = ['image_link', 'description', 'category']
     st.write(df)
     choice = st.selectbox(
         "Select the Type",
