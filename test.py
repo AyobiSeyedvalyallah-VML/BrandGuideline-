@@ -59,7 +59,7 @@ for uploaded_file in uploaded_files:
                     # df = pd.read_csv(StringIO(st.session_state['df']),sep='\t',header=0)
                     # st.session_state['df'] = df
                     st.write('Error: ',"can't parse the file")
-    st.write(df.columns)
+    st.write(df)
     choice = st.selectbox(
         "Select the Type",
         [i for i in df['category'].unique()],
