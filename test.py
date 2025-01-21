@@ -64,7 +64,7 @@ for uploaded_file in uploaded_files:
     st.write(df)
     choice = st.selectbox(
         "Select the Type",
-        [i for i in df['category'].unique() if i != 'category' or i != 'plaintext'],
+        [i for i in df['category'].unique() if i != 'category' and i != 'plaintext'],
         index=None,
         placeholder="Please select the category..."
     )
