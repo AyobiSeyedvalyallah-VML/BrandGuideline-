@@ -23,6 +23,7 @@ st.session_state.setdefault("df", '')
 st.session_state.setdefault("retry",True)
 st.session_state.setdefault('filename','')
 file_name = ''
+df = ''
 for uploaded_file in uploaded_files:
 
     bytes_data = uploaded_file.read()
