@@ -25,7 +25,7 @@ def prompt_transformer(html_content: str) -> str:
             {"role": "system", "content":  """you will receive a html file of my brand guideline
 I want you to generate a table the one column is image_link and one column is description (if it doesn't have return None for description) and one column category of image (this should not be long) and don't over categorized.
 if the category is font, only return the name of the font in the description
-Only return the table that has image_link, description, category columns in CSV format and the delimiter should be ** and DO NOT add "plaintext" in your response """},
+Only return the table that has image_link, description, category columns in JSON format """},
             {"role": "user", "content": f'{html_content}'}
         ]
     )
@@ -37,7 +37,7 @@ def fix_csv(text):
     response = openai.chat.completions.create(
         model=MODEL,
         messages=[
-            {"role": "system", "content":  """fix the following csv which its delimiter is **. Only return the TSV"""},
+            {"role": "system", "content":  """fix the following JSON . Only return the JSON"""},
             {"role": "user", "content": f'{text}'}
         ]
     )
