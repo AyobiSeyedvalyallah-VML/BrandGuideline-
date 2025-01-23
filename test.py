@@ -2,7 +2,7 @@ from io import StringIO
 import pandas as pd
 import streamlit as st
 import os
-from helpers import prompt_transformer, image_font_generation, fix_csv, capitalize_if_needed
+from helpers import prompt_transformer, image_font_generation, fix_csv, capitalize_if_needed, config
 import time
 from pathlib import Path
 import json
@@ -70,6 +70,11 @@ for uploaded_file in uploaded_files:
     # st.write(f)
     # df.columns = ['image_link', 'description', 'category']
     # st.write(df.columns)
+    if st.button("Generate configuration"):
+        with st.spinner("Generating..."):
+            configuration = config(html_content)
+            st.write(configuration)
+        
     choice = st.selectbox(
         "Select the Type",
         [i for i in df['category'].unique() if i != 'category' and i != 'plaintext'],
