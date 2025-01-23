@@ -1,3 +1,4 @@
+
 import openai
 import pandas as pd
 from io import StringIO
@@ -50,43 +51,81 @@ def config(html_content):
             {"role": "system", "content":  """you will receive an html and try to extract information from it. return the output ONLY in the following format:
 
 {
-    "configuration" = {
-				"logo":{
-					"data":[
-						{
-						"type":string,
-						"description":string,
-						"link":string
-						}
-						]
-					},
-				"color":{
-					"data":[
-						{
-						 "category":string,
-						 "description":string,
-						 "RGB_code":string
-						}
-							]
-					},
-				"font":{	
-					"data":[
-						{
-						 "name":string,
-						 "link":string,
-						 "description":string
-						}
-						]
-					},
-				"General_brand_guidline":{
-							   "data":[
-									 {
-									"category":string
-									"description":string
-									 }
-								  ]
-							 }
-}
+   configuration : {
+ "brand_identity": {
+     "name": string,
+     "version": "1.0",
+     "industry": string,
+     "brand_personality": string,
+     "target_audience": string
+ },
+ "logo": {
+     "assets": {
+         "primary": {
+             "path": string,
+             "format": string,
+             "variants": (e.g ["light", "dark"])
+         },
+         "symbol_only": {
+             "path": string,
+             "format": string
+         }
+     },
+     "usage_rules": {
+         "placement": {
+             "allowed_positions": (e.g ["top_left", "center", "bottom_right"]),
+             "spacing": {
+                 "min_margin_ratio": int,
+                 "clear_space_ratio": int
+             }
+         },
+         "sizing": {
+             "min_width_px": int,
+             "max_width_px": int,
+             "preserve_aspect_ratio": Boolean
+         }
+     }
+ },
+ "color": {
+     "palettes": {
+         "primary": [
+             {
+                 "name": string,
+                 ("hex" or "RGB"): (e.g "#0047AB"),
+                 "semantic_meaning": string
+             }
+         ],
+         "secondary": [],
+         "accent": []
+     },
+     "usage_guidelines": string
+ },
+ "visual_style": {
+     "core_principles": string,
+     "photography_style": string,
+     "composition_guidelines": string
+ },
+ "ai_generation_parameters": {
+     "base_style_prompt": string,
+     "negative_prompt": string,
+     "style_modifiers": {
+         "corporate": string,
+         "product": string,
+         "technical": string
+     },
+     "model_preferences": {
+         "preferred_models": (e.g ["SDXL", "SD1.5"]),
+         "sampling": {
+             "method": (e.g "DPM++ 2M Karras"),
+             "steps": int,
+             "cfg_scale": int
+         }
+     }
+ },
+ "content_guidelines": {
+     "required_elements": string,
+     "prohibited_elements": string
+ }
 }
 """},
             {"role": "user", "content": f'{html_content}'}
