@@ -6,6 +6,7 @@ from pathlib import Path
 from PIL import Image,ImageDraw,ImageFont
 import requests
 from io import BytesIO
+import re
 
 project_dir = Path(__file__).parent.parent
 project_path = os.path.join(project_dir,'brandguideline-')
@@ -15,6 +16,88 @@ def capitalize_if_needed(s):
     if not s[:1].isupper():  # Check if the first character is not uppercase
         return s.capitalize()
     return s
+def fix_trailing_commas(json_string):
+    """
+    Fix trailing commas in a JSON string.
+    :param json_string: The raw JSON string with potential trailing commas
+    :return: A corrected JSON string
+    """
+    # Regex to find trailing commas
+    pattern = r',\s*([\]}])'
+    # Replace the trailing comma with just the closing bracket or brace
+    fixed_json = re.sub(pattern, r'\1', json_string)
+    return fixed_json
+
+def fix_missing_commas(json_string):
+    """
+    Fix missing commas in a JSON string.
+    :param json_string: The raw JSON string with potential formatting issues
+    :return: A corrected JSON string
+    """
+    # Regex to detect missing commas between object properties
+    # Matches: "value"} or "value"] and inserts a comma between them
+    pattern = r'(["\}\]])\s*([{"\[])'
+    fixed_json = re.sub(pattern, r'\1,\2', json_string)
+    return fixed_json
+
+def config(html_content):
+    """
+    Transforms the user input into an optimized prompt using OpenAI GPT-4.
+    """
+    response = openai.chat.completions.create(
+        model=MODEL,
+        messages=[
+            {"role": "system", "content":  """you will receive an html and try to extract information from it. return the output ONLY in the following format:
+
+{
+    "configuration" = {
+				"logo":{
+					"data":[
+						{
+						"type":string,
+						"description":string,
+						"link":string
+						}
+						]
+					},
+				"color":{
+					"data":[
+						{
+						 "category":string,
+						 "description":string,
+						 "RGB_code":string
+						}
+							]
+					},
+				"font":{	
+					"data":[
+						{
+						 "name":string,
+						 "link":string,
+						 "description":string
+						}
+						]
+					},
+				"General_brand_guidline":{
+							   "data":[
+									 {
+									"category":string
+									"description":string
+									 }
+								  ]
+							 }
+}
+}
+"""},
+            {"role": "user", "content": f'{html_content}'}
+        ]
+    )
+    data = response.choices[0].message.content.replace('json','').strip()
+    data = fix_trailing_commas(data)
+    data = fix_missing_commas(data)
+    # df = pd.read_csv(StringIO(data),quotechar='"')
+    return data
+ 
 def prompt_transformer(html_content: str) -> str:
     """
     Transforms the user input into an optimized prompt using OpenAI GPT-4.
