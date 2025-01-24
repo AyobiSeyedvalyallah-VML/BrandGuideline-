@@ -47,7 +47,7 @@ def config(html_content):
     response = openai.chat.completions.create(
         model=MODEL,
         messages=[
-            {"role": "system", "content":  """you will receive an html and try to extract information from it, ONLY the information exist in the html. For Logo, if you cannot find the information for the related field in the configuration, leave the field empty. return the output ONLY in the following format:
+            {"role": "system", "content":  """you will receive an html and try to extract information from it, ONLY the information exist in the html. For Logo and fields that requires links, if you cannot find the information for the related field in the configuration, leave the field empty. return the output ONLY in the following format:
 
 {
    configuration : {
