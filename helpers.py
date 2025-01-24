@@ -47,7 +47,7 @@ def config(html_content):
     response = openai.chat.completions.create(
         model=MODEL,
         messages=[
-            {"role": "system", "content":  """you will receive an html and try to extract information from it. return the output ONLY in the following format:
+            {"role": "system", "content":  """you will receive an html and try to extract information from it, ONLY the information exist in the html. return the output ONLY in the following format:
 
 {
    configuration : {
